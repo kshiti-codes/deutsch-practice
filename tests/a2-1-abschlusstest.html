@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deutsch A2.1 Abschlusstest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one exam-paper column, sticky progress bar, four numbered parts (Teil 1–4), results + teacher key below. Correction red marks mistakes like a teacher's pen. */
+:root {
+  --paper: #f6f7f9;
+  --sheet: #ffffff;
+  --ink: #1b2233;
+  --ink-soft: #566079;
+  --rule: #dfe3ea;
+  --accent: #2647a8;
+  --accent-soft: #e6ecfa;
+  --ok: #1d7a4a;
+  --ok-soft: #e3f3ea;
+  --pen: #c42b2b;
+  --pen-soft: #fbe7e5;
+  --warn-soft: #fff4d6;
+  --warn: #8a5a00;
+  --f-display: "Zilla Slab", "Rockwell", Georgia, serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12151d; --sheet: #1a1f2a; --ink: #e6e9f0; --ink-soft: #9aa3b8; --rule: #2d3442;
+    --accent: #8fa8f0; --accent-soft: #232d48; --ok: #5cc48d; --ok-soft: #173326;
+    --pen: #f07a72; --pen-soft: #3b1f20; --warn-soft: #3a2f14; --warn: #f0c26a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12151d; --sheet: #1a1f2a; --ink: #e6e9f0; --ink-soft: #9aa3b8; --rule: #2d3442;
+  --accent: #8fa8f0; --accent-soft: #232d48; --ok: #5cc48d; --ok-soft: #173326;
+  --pen: #f07a72; --pen-soft: #3b1f20; --warn-soft: #3a2f14; --warn: #f0c26a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font: 16px/1.55 var(--f-body); }
+.wrap { max-width: 780px; margin: 0 auto; padding-inline: 16px; padding-block: 0 64px; }
+
+/* Top bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule); }
+.bar-in { max-width: 780px; margin: 0 auto; padding: 10px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.back { font: 600 13px var(--f-body); color: var(--accent); text-decoration: none; padding: 4px 10px 4px 0; }
+.back:hover, .back:focus-visible { text-decoration: underline; outline: none; }
+.bar nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.bar nav a { font: 500 13px var(--f-body); color: var(--ink-soft); text-decoration: none; padding: 4px 10px; border-radius: 999px; }
+.bar nav a:hover, .bar nav a:focus-visible { background: var(--accent-soft); color: var(--accent); outline: none; }
+.progress { margin-left: auto; display: flex; align-items: center; gap: 10px; font: 13px var(--f-mono); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.meter { width: 110px; height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.meter i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s; }
+
+/* Header */
+header.intro { padding-block: 40px 8px; }
+.eyebrow { font: 500 12px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 clamp(30px, 6vw, 44px)/1.1 var(--f-display); margin: 8px 0 12px; text-wrap: balance; }
+.lede { color: var(--ink-soft); max-width: 62ch; margin: 0; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 20px 0 0; padding: 0; list-style: none; font-size: 14px; }
+.facts b { font-family: var(--f-mono); font-weight: 500; }
+.name-row { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.name-row label { font-size: 14px; color: var(--ink-soft); }
+input[type="text"], input[type="password"], input[type="number"], textarea, select {
+  font: inherit; color: var(--ink); background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px;
+}
+input:focus-visible, textarea:focus-visible, select:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#learnerName { min-width: 0; flex: 1 1 220px; max-width: 320px; }
+
+/* Parts */
+section.teil { margin-top: 36px; background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 24px clamp(16px, 4vw, 32px); scroll-margin-top: 70px; }
+.teil-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; border-bottom: 2px solid var(--ink); padding-bottom: 10px; margin-bottom: 8px; }
+.teil-head .num { font: 500 13px var(--f-mono); color: var(--ink-soft); letter-spacing: .06em; text-transform: uppercase; }
+.teil-head h2 { font: 700 26px/1.2 var(--f-display); margin: 0; }
+.teil-head .pts { margin-left: auto; font: 500 13px var(--f-mono); color: var(--ink-soft); }
+.teil-head .pts.scored { color: var(--ink); background: var(--accent-soft); padding: 2px 8px; border-radius: 6px; }
+h3 { font: 600 19px/1.3 var(--f-display); margin: 28px 0 4px; }
+.task { color: var(--ink-soft); font-size: 15px; margin: 0 0 14px; }
+
+ol.items { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; }
+ol.items > li { padding: 14px 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 2.2em 1fr; gap: 0 8px; }
+ol.items > li:first-child { border-top: 0; }
+.qn { font: 500 14px/1.9 var(--f-mono); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.qbody { min-width: 0; }
+.prompt { margin: 0 0 8px; }
+.gap { display: inline-block; min-width: 4.5em; border-bottom: 1.5px solid var(--ink-soft); }
+
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice { position: relative; }
+.choice input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.choice span { display: inline-block; padding: 6px 14px; border: 1px solid var(--rule); border-radius: 999px; background: var(--sheet); font-size: 15px; cursor: pointer; transition: background .12s, border-color .12s; }
+.choice input:hover + span { border-color: var(--accent); }
+.choice input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.choice input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--sheet); }
+.choice input:disabled { cursor: default; }
+.choice input:disabled + span { cursor: default; }
+
+/* Marking after submit */
+li.right .qn::after, li.wrong .qn::after { display: block; font-size: 16px; font-weight: 600; }
+li.right .qn::after { content: "✓"; color: var(--ok); }
+li.wrong .qn::after { content: "✗"; color: var(--pen); }
+.choice.is-correct span { border-color: var(--ok); background: var(--ok-soft); color: var(--ink); }
+.choice.is-correct input:checked + span { background: var(--ok); border-color: var(--ok); color: var(--sheet); }
+.choice.is-wrong input:checked + span { background: var(--pen); border-color: var(--pen); color: var(--sheet); text-decoration: line-through; }
+.fix { display: block; margin-top: 6px; font-size: 14px; color: var(--pen); }
+.fix b { font-weight: 600; }
+
+/* Cloze */
+.cloze { background: var(--paper); border-radius: 10px; padding: 18px 20px; line-height: 2.4; font-size: 16.5px; }
+.cloze select { padding: 3px 6px; margin: 0 2px; font-size: 15px; }
+.cloze .tag { font: 500 11px var(--f-mono); color: var(--ink-soft); vertical-align: super; margin-left: 2px; }
+.cloze select.right { border-color: var(--ok); background: var(--ok-soft); }
+.cloze select.wrong { border-color: var(--pen); background: var(--pen-soft); }
+.cloze .fixinline { color: var(--pen); font-size: 14px; margin-left: 2px; }
+
+/* Reading */
+.letter { background: var(--paper); border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 0 0 16px; font-size: 16px; max-width: 64ch; }
+.letter p { margin: 0 0 10px; }
+.letter .meta { font: 13px var(--f-mono); color: var(--ink-soft); margin-bottom: 12px; }
+.ads { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 0 0 18px; }
+.ad { border: 1px dashed var(--ink-soft); border-radius: 8px; padding: 12px 14px; font-size: 14.5px; background: var(--sheet); min-width: 0; }
+.ad .letterkey { font: 700 18px var(--f-display); color: var(--accent); }
+.ad strong { display: block; margin: 2px 0 4px; }
+.ad p { margin: 0; color: var(--ink-soft); }
+.match-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.match-row select.right { border-color: var(--ok); background: var(--ok-soft); }
+.match-row select.wrong { border-color: var(--pen); background: var(--pen-soft); }
+
+/* Writing */
+.brief { background: var(--paper); border-radius: 10px; padding: 16px 20px; margin-bottom: 14px; }
+.brief p { margin: 0 0 8px; }
+.brief ul { margin: 0; padding-left: 20px; }
+textarea#writing { width: 100%; min-height: 220px; resize: vertical; line-height: 1.6; }
+.wc { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; font: 13px var(--f-mono); color: var(--ink-soft); margin-top: 6px; }
+.wc .ok { color: var(--ok); }
+.wc .low { color: var(--warn); }
+
+/* Buttons */
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 28px; }
+button { font: 600 15px var(--f-body); border-radius: 8px; padding: 10px 18px; cursor: pointer; border: 1px solid transparent; }
+.btn-primary { background: var(--accent); color: var(--sheet); }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--rule); }
+.btn-ghost:hover { border-color: var(--ink-soft); }
+.btn-danger { background: var(--pen); color: var(--sheet); }
+.notice { border-radius: 10px; padding: 12px 16px; font-size: 15px; background: var(--warn-soft); color: var(--ink); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; }
+.notice span { flex: 1 1 260px; }
+
+/* Results */
+#results { scroll-margin-top: 70px; }
+.score-hero { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 24px; margin: 4px 0 18px; }
+.score-hero .big { font: 700 56px/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.score-hero .big small { font-size: 24px; color: var(--ink-soft); font-weight: 500; }
+.score-hero .verdict { font-size: 15px; color: var(--ink-soft); max-width: 40ch; }
+table.scores { width: 100%; border-collapse: collapse; font-size: 15px; }
+table.scores th, table.scores td { text-align: left; padding: 9px 8px; border-bottom: 1px solid var(--rule); }
+table.scores th { font: 500 12px var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
+table.scores td.n { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.scores th.n { text-align: right; }
+.bar-cell { width: 34%; }
+.minibar { height: 8px; background: var(--rule); border-radius: 4px; overflow: hidden; }
+.minibar i { display: block; height: 100%; background: var(--accent); }
+.table-scroll { overflow-x: auto; }
+#copyFallback { width: 100%; min-height: 160px; margin-top: 12px; font: 13px/1.5 var(--f-mono); }
+.small { font-size: 14px; color: var(--ink-soft); }
+
+/* Teacher */
+footer.foot { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; font-size: 14px; color: var(--ink-soft); }
+.unlock { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.unlock input { width: 180px; }
+#teacher h3:first-of-type { margin-top: 12px; }
+.key-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px 16px; font-size: 14.5px; margin: 0; padding: 0; list-style: none; }
+.key-grid li { display: flex; gap: 8px; border-bottom: 1px dotted var(--rule); padding: 3px 0; min-width: 0; }
+.key-grid .k { font-family: var(--f-mono); color: var(--ink-soft); min-width: 3.2em; }
+.rubric td input { width: 70px; }
+.model { background: var(--paper); border-radius: 10px; padding: 16px 20px; white-space: pre-line; font-size: 15.5px; }
+.calc { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; align-items: end; }
+.calc label { display: grid; gap: 4px; font-size: 14px; color: var(--ink-soft); }
+.calc output { font: 600 20px var(--f-display); color: var(--ink); }
+.grade-chip { display: inline-block; padding: 3px 10px; border-radius: 999px; font: 600 14px var(--f-body); background: var(--accent-soft); color: var(--accent); }
+.grade-chip.fail { background: var(--pen-soft); color: var(--pen); }
+.grade-chip.pass { background: var(--ok-soft); color: var(--ok); }
+
+@media (max-width: 520px) {
+  .progress { margin-left: 0; width: 100%; }
+  .meter { flex: 1; }
+  .score-hero .big { font-size: 44px; }
+  .bar-cell { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+
+[hidden]{display:none!important}
+html,body{margin:0}
+img{max-width:100%}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="back" href="../index.html">← Alle Tests</a>
+    <nav aria-label="Teile">
+      <a href="#teil1">Grammatik</a>
+      <a href="#teil2">Wortschatz</a>
+      <a href="#teil3">Lesen</a>
+      <a href="#teil4">Schreiben</a>
+    </nav>
+    <div class="progress" aria-live="polite">
+      <span id="progressText">0/35 beantwortet</span>
+      <span class="meter"><i id="progressBar"></i></span>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <header class="intro">
+    <div class="eyebrow">Niveau A2.1 · GER</div>
+    <h1>Deutsch A2.1 – Abschlusstest</h1>
+    <p class="lede">Dieser Test prüft Grammatik, Wortschatz, Leseverstehen und Schreiben auf dem Niveau A2.1. Lesen Sie jede Aufgabe genau. Teil 1 bis 3 werden automatisch korrigiert, Teil 4 bewertet Ihre Lehrkraft.</p>
+    <ul class="facts">
+      <li>Zeit: <b>60 Min.</b></li>
+      <li>Punkte: <b>50</b></li>
+      <li>Bestanden ab: <b>30 P. (60 %)</b></li>
+      <li>Hilfsmittel: <b>keine</b></li>
+    </ul>
+    <div class="name-row">
+      <label for="learnerName">Ihr Name (optional, nur für die Ergebnis-Kopie):</label>
+      <input type="text" id="learnerName" autocomplete="off" placeholder="Vorname">
+    </div>
+  </header>
+
+  <section class="teil" id="teil1">
+    <div class="teil-head"><span class="num">Teil 1</span><h2>Grammatik</h2><span class="pts" id="pts-t1">15 Punkte</span></div>
+    <h3>A · Was ist richtig?</h3>
+    <p class="task">Wählen Sie die richtige Lösung. Pro Aufgabe gibt es einen Punkt.</p>
+    <ol class="items" id="g-mc"></ol>
+    <h3>B · Mein Wochenende</h3>
+    <p class="task">Lesen Sie den Text und wählen Sie das passende Wort für jede Lücke (1–5).</p>
+    <div class="cloze" id="g-cloze"></div>
+  </section>
+
+  <section class="teil" id="teil2">
+    <div class="teil-head"><span class="num">Teil 2</span><h2>Wortschatz</h2><span class="pts" id="pts-t2">10 Punkte</span></div>
+    <h3>A · Welches Wort passt nicht?</h3>
+    <p class="task">Drei Wörter gehören zu einem Thema. Markieren Sie das Wort, das nicht passt.</p>
+    <ol class="items" id="v-odd"></ol>
+    <h3>B · Was passt in die Lücke?</h3>
+    <p class="task">Wählen Sie das passende Wort.</p>
+    <ol class="items" id="v-gap"></ol>
+  </section>
+
+  <section class="teil" id="teil3">
+    <div class="teil-head"><span class="num">Teil 3</span><h2>Lesen</h2><span class="pts" id="pts-t3">10 Punkte</span></div>
+    <h3>A · Eine E-Mail von Lena</h3>
+    <p class="task">Lesen Sie die E-Mail. Sind die Sätze richtig oder falsch?</p>
+    <div class="letter">
+      <div class="meta">Von: Lena · An: Tom · Betreff: Neuigkeiten aus Hamburg</div>
+      <p>Hallo Tom,</p>
+      <p>wie geht es dir? Ich habe lange nichts von dir gehört! Bei mir gibt es viel Neues: Seit März wohne ich nicht mehr in Köln, sondern in Hamburg. Ich habe hier eine neue Stelle in einem Hotel gefunden. Die Arbeit gefällt mir sehr gut, aber ich muss oft am Wochenende arbeiten.</p>
+      <p>Meine Wohnung ist klein, aber sie hat einen Balkon und ist nur zehn Minuten vom Hafen entfernt.</p>
+      <p>Nächsten Monat habe ich eine Woche Urlaub. Möchtest du mich besuchen? Wir können zusammen eine Hafenrundfahrt machen und am Abend ins Musical gehen. Du kannst bei mir auf dem Sofa schlafen.</p>
+      <p>Schreib mir bald!<br>Liebe Grüße<br>Lena</p>
+    </div>
+    <ol class="items" id="r-rf"></ol>
+
+    <h3>B · Anzeigen</h3>
+    <p class="task">Lesen Sie die Situationen 1–4 und die Anzeigen A–E. Welche Anzeige passt? Eine Anzeige brauchen Sie nicht.</p>
+    <div class="ads" id="adList"></div>
+    <ol class="items" id="r-match"></ol>
+  </section>
+
+  <section class="teil" id="teil4">
+    <div class="teil-head"><span class="num">Teil 4</span><h2>Schreiben</h2><span class="pts">15 Punkte</span></div>
+    <div class="brief">
+      <p>Sie haben am Samstag Geburtstag und machen eine Party. Schreiben Sie eine E-Mail an Ihre Kollegin / Ihren Kollegen Alex.</p>
+      <ul>
+        <li>Laden Sie Alex zur Party ein.</li>
+        <li>Schreiben Sie, wann und wo die Party ist.</li>
+        <li>Bitten Sie Alex, etwas mitzubringen.</li>
+      </ul>
+      <p style="margin:8px 0 0">Schreiben Sie ca. 40–60 Wörter. Vergessen Sie Anrede und Gruß nicht.</p>
+    </div>
+    <label for="writing" class="small">Ihre E-Mail:</label>
+    <textarea id="writing" spellcheck="false" placeholder="Hallo Alex, …"></textarea>
+    <div class="wc"><span id="wordCount">0 Wörter</span><span>Dieser Teil wird von Ihrer Lehrkraft bewertet.</span></div>
+  </section>
+
+  <div class="actions" id="submitArea">
+    <button class="btn-primary" id="submitBtn" type="button">Test abgeben</button>
+    <span class="small" id="submitHint">Sie können Ihre Antworten bis zur Abgabe ändern.</span>
+  </div>
+  <div class="notice" id="openNotice" hidden>
+    <span id="openNoticeText"></span>
+    <button class="btn-primary" id="confirmSubmit" type="button">Trotzdem abgeben</button>
+    <button class="btn-ghost" id="cancelSubmit" type="button">Weiter bearbeiten</button>
+  </div>
+
+  <section class="teil" id="results" hidden>
+    <div class="teil-head"><span class="num">Auswertung</span><h2>Ihr Ergebnis</h2></div>
+    <div class="score-hero">
+      <div class="big" id="autoScore">0<small> / 35</small></div>
+      <div class="verdict" id="verdict"></div>
+    </div>
+    <div class="table-scroll">
+      <table class="scores">
+        <thead><tr><th>Teil</th><th class="bar-cell"></th><th class="n">Punkte</th></tr></thead>
+        <tbody id="scoreRows"></tbody>
+      </table>
+    </div>
+    <p class="small">Fehler sind oben in Rot markiert, die richtige Lösung steht darunter. Schicken Sie Ihr Ergebnis und Ihren Text an Ihre Lehrkraft.</p>
+    <div class="actions">
+      <button class="btn-primary" id="copyBtn" type="button">Ergebnis kopieren</button>
+      <button class="btn-ghost" id="resetBtn" type="button">Neu beginnen</button>
+      <span class="small" id="copyStatus" role="status"></span>
+    </div>
+    <div class="notice" id="resetNotice" hidden>
+      <span>Alle Antworten und Ihr Text werden gelöscht.</span>
+      <button class="btn-danger" id="confirmReset" type="button">Ja, löschen</button>
+      <button class="btn-ghost" id="cancelReset" type="button">Abbrechen</button>
+    </div>
+    <textarea id="copyFallback" readonly hidden aria-label="Ergebnis zum Kopieren"></textarea>
+  </section>
+
+  <section class="teil" id="teacher" hidden>
+    <div class="teil-head"><span class="num">Nur für Lehrkräfte</span><h2>Lösungen &amp; Bewertung</h2></div>
+
+    <h3>Lösungsschlüssel</h3>
+    <div id="keyBlocks"></div>
+
+    <h3>Teil 4 · Bewertungskriterien Schreiben</h3>
+    <div class="table-scroll">
+      <table class="scores rubric">
+        <thead><tr><th>Kriterium</th><th>Beschreibung</th><th class="n">Punkte</th></tr></thead>
+        <tbody>
+          <tr><td>Inhalt</td><td>Je 2 P. pro Leitpunkt: Einladung · Zeit und Ort · Bitte, etwas mitzubringen. 1 P., wenn der Punkt nur teilweise oder unklar bearbeitet ist.</td><td class="n"><input type="number" id="rub1" min="0" max="6" step="1" aria-label="Inhalt, 0 bis 6"> / 6</td></tr>
+          <tr><td>Form &amp; Aufbau</td><td>Passende Anrede und Gruß (1 P.), Sätze sinnvoll verbunden, z. B. mit <i>und, aber, dann, weil</i> (2 P.).</td><td class="n"><input type="number" id="rub2" min="0" max="3" step="1" aria-label="Form, 0 bis 3"> / 3</td></tr>
+          <tr><td>Sprache</td><td>6: wenige Fehler, Text gut verständlich · 4: einige Fehler, gut verständlich · 2: viele Fehler, Verständnis teils schwer · 0: kaum verständlich.</td><td class="n"><input type="number" id="rub3" min="0" max="6" step="2" aria-label="Sprache, 0 bis 6"> / 6</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Musterlösung Teil 4</h3>
+    <div class="model">Hallo Alex,
+
+am Samstag habe ich Geburtstag und ich mache eine kleine Party. Möchtest du kommen? Die Party beginnt um 19 Uhr bei mir zu Hause in der Gartenstraße 12. Kannst du vielleicht einen Salat mitbringen? Ich mache Pizza und kaufe die Getränke. Ich freue mich auf dich!
+
+Viele Grüße
+Sam</div>
+    <p class="small">51 Wörter. Alle drei Leitpunkte sind bearbeitet.</p>
+
+    <h3>Gesamtpunktzahl &amp; Note</h3>
+    <div class="calc">
+      <label for="calcAuto">Teil 1–3 (automatisch)<input type="number" id="calcAuto" min="0" max="35" step="1"></label>
+      <label>Teil 4 (aus Kriterien)<output id="calcWrite">0 / 15</output></label>
+      <label>Gesamt<output id="calcTotal">0 / 50</output></label>
+      <label>Bewertung<span><span class="grade-chip" id="calcGrade">–</span></span></label>
+    </div>
+    <div class="table-scroll" style="margin-top:16px">
+      <table class="scores">
+        <thead><tr><th>Punkte</th><th>Prozent</th><th>Bewertungsvorschlag</th></tr></thead>
+        <tbody>
+          <tr><td class="n" style="text-align:left">45–50</td><td>90–100 %</td><td>sehr gut</td></tr>
+          <tr><td class="n" style="text-align:left">40–44</td><td>80–89 %</td><td>gut</td></tr>
+          <tr><td class="n" style="text-align:left">35–39</td><td>70–79 %</td><td>befriedigend</td></tr>
+          <tr><td class="n" style="text-align:left">30–34</td><td>60–69 %</td><td>ausreichend (bestanden)</td></tr>
+          <tr><td class="n" style="text-align:left">0–29</td><td>unter 60 %</td><td>nicht bestanden</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="actions"><button class="btn-ghost" id="lockBtn" type="button">Lehrkraft-Ansicht schließen</button></div>
+  </section>
+
+  <footer class="foot">
+    <span>Deutsch A2.1 · Abschlusstest · 4 Teile</span>
+    <div class="unlock" id="unlockBox">
+      <label for="teacherCode" class="small">Lehrkraft-Code:</label>
+      <input type="password" id="teacherCode" autocomplete="off">
+      <button class="btn-ghost" id="unlockBtn" type="button">Öffnen</button>
+      <span class="small" id="unlockMsg" role="status"></span>
+    </div>
+  </footer>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- Test content ---------- */
+  var GRAMMAR_MC = [
+    { id: "g1", p: "Gestern ___ ich mit meiner Freundin ins Kino gegangen.", o: ["habe", "bin", "war", "hatte"], a: "bin" },
+    { id: "g2", p: "Wir haben am Wochenende viel ___.", o: ["arbeiten", "arbeitet", "gearbeitet", "gearbeiten"], a: "gearbeitet" },
+    { id: "g3", p: "Ich kann heute nicht kommen, weil ich krank ___.", o: ["bin", "sein", "habe", "ist"], a: "bin" },
+    { id: "g4", p: "Kannst du ___ bitte helfen?", o: ["mich", "mir", "mein", "ich"], a: "mir" },
+    { id: "g5", p: "Das Geschenk ist für ___ Bruder.", o: ["meinem", "meinen", "meiner", "mein"], a: "meinen" },
+    { id: "g6", p: "Ich fahre jeden Tag mit ___ Bus zur Arbeit.", o: ["der", "den", "das", "dem"], a: "dem" },
+    { id: "g7", p: "Als Kind ___ ich jeden Tag Fußball spielen.", o: ["will", "wollte", "gewollt", "wollen"], a: "wollte" },
+    { id: "g8", p: "Hamburg ist ___ als Bremen.", o: ["groß", "größer", "am größten", "großer"], a: "größer" },
+    { id: "g9", p: "Ich glaube, ___ das Wetter morgen schön ist.", o: ["weil", "denn", "dass", "oder"], a: "dass" },
+    { id: "g10", p: "Am Morgen dusche ich und dann ziehe ich ___ an.", o: ["mich", "mir", "sich", "dich"], a: "mich" }
+  ];
+
+  var CLOZE = {
+    parts: [
+      "Am Samstag ", { id: "c1", o: ["habe", "bin", "hat"], a: "habe" }, " ich lange geschlafen. Dann ",
+      { id: "c2", o: ["habe", "bin", "ist"], a: "bin" }, " ich in die Stadt gefahren und ",
+      { id: "c3", o: ["habe", "bin", "hat"], a: "habe" }, " eine neue Jacke gekauft. Am Abend haben wir Pizza ",
+      { id: "c4", o: ["essen", "gegessen", "geessen", "gegesst"], a: "gegessen" }, ". Am Sonntag ",
+      { id: "c5", o: ["haben", "hat", "sind", "ist"], a: "sind" }, " meine Eltern zu Besuch gekommen."
+    ]
+  };
+
+  var VOCAB_ODD = [
+    { id: "w1", o: ["Bahnhof", "Gleis", "Fahrkarte", "Kühlschrank"], a: "Kühlschrank" },
+    { id: "w2", o: ["Kopf", "Pullover", "Bauch", "Rücken"], a: "Pullover" },
+    { id: "w3", o: ["Miete", "Briefmarke", "Wohnzimmer", "Balkon"], a: "Briefmarke" },
+    { id: "w4", o: ["Kollege", "Chef", "Spielplatz", "Besprechung"], a: "Spielplatz" }
+  ];
+
+  var VOCAB_GAP = [
+    { id: "w5", p: "Ich habe Fieber und Halsschmerzen. Ich gehe heute zum ___.", o: ["Bäcker", "Arzt", "Friseur", "Bahnhof"], a: "Arzt" },
+    { id: "w6", p: "Die Wohnung hat drei Zimmer, eine Küche und ein ___.", o: ["Bad", "Bett", "Buch", "Brot"], a: "Bad" },
+    { id: "w7", p: "Entschuldigung, wie viel ___ die Schuhe?", o: ["bezahlen", "kaufen", "kosten", "geben"], a: "kosten" },
+    { id: "w8", p: "Im Sommer fahre ich gern ans ___ und schwimme.", o: ["Gebirge", "Meer", "Büro", "Wetter"], a: "Meer" },
+    { id: "w9", p: "Können Sie mir bitte die Rechnung per E-Mail ___?", o: ["schlafen", "stehen", "schicken", "fallen"], a: "schicken" },
+    { id: "w10", p: "Ich habe morgen um 10 Uhr einen ___ beim Zahnarzt.", o: ["Termin", "Zeit", "Uhr", "Tag"], a: "Termin" }
+  ];
+
+  var READ_RF = [
+    { id: "r1", p: "Lena wohnt jetzt in Hamburg.", a: "richtig" },
+    { id: "r2", p: "Lena arbeitet in einem Restaurant.", a: "falsch" },
+    { id: "r3", p: "Lena hat am Wochenende immer frei.", a: "falsch" },
+    { id: "r4", p: "Lenas Wohnung ist groß.", a: "falsch" },
+    { id: "r5", p: "Lena hat nächsten Monat Urlaub.", a: "richtig" },
+    { id: "r6", p: "Tom kann bei Lena übernachten.", a: "richtig" }
+  ];
+
+  var ADS = [
+    { k: "A", t: "Deutschkurs am Abend", d: "Montag und Mittwoch, 18:30–20:00 Uhr. Volkshochschule Altona. Anmeldung online." },
+    { k: "B", t: "Fahrrad zu verkaufen", d: "3 Jahre alt, sehr guter Zustand, mit Licht und Schloss. Nur 120 €. Abholung in Eimsbüttel." },
+    { k: "C", t: "Zahnarztpraxis am Markt", d: "Neue Sprechzeiten: Mo–Fr 8–13 Uhr, Di und Do auch 15–19 Uhr. Termine nur nach Vereinbarung." },
+    { k: "D", t: "Freibad am Stadtpark", d: "Im Juli und August täglich von 7 bis 21 Uhr geöffnet. Kinder bis 6 Jahre frei." },
+    { k: "E", t: "Kleine Wohnung zu vermieten", d: "1 Zimmer, Küche, Bad, 38 m², ab 1. November. 650 € warm." }
+  ];
+
+  var READ_MATCH = [
+    { id: "m1", p: "Sie arbeiten jeden Tag bis 17 Uhr und möchten besser Deutsch lernen.", a: "A" },
+    { id: "m2", p: "Sie brauchen ein günstiges Verkehrsmittel für den Weg zur Arbeit.", a: "B" },
+    { id: "m3", p: "Sie haben Zahnschmerzen, aber Sie haben nur am Nachmittag Zeit.", a: "C" },
+    { id: "m4", p: "Sie suchen eine Wohnung nur für sich allein.", a: "E" }
+  ];
+
+  var SECTIONS = [
+    { key: "t1", name: "Teil 1 · Grammatik", max: 15, ids: GRAMMAR_MC.map(id).concat(CLOZE.parts.filter(isObj).map(id)) },
+    { key: "t2", name: "Teil 2 · Wortschatz", max: 10, ids: VOCAB_ODD.map(id).concat(VOCAB_GAP.map(id)) },
+    { key: "t3", name: "Teil 3 · Lesen", max: 10, ids: READ_RF.map(id).concat(READ_MATCH.map(id)) }
+  ];
+  var TEACHER_CODE = "lehrkraft";
+  var STORE_KEY = "deutsch-a21-test-v1";
+
+  var KEY = {};
+  [GRAMMAR_MC, CLOZE.parts.filter(isObj), VOCAB_ODD, VOCAB_GAP, READ_RF, READ_MATCH].forEach(function (list) {
+    list.forEach(function (q) { KEY[q.id] = q.a; });
+  });
+  var TOTAL_AUTO = Object.keys(KEY).length;
+  var LABEL = {};
+  [["1A", GRAMMAR_MC, 1], ["1B", CLOZE.parts.filter(isObj), 1], ["2A", VOCAB_ODD, 1], ["2B", VOCAB_GAP, 5], ["3A", READ_RF, 1], ["3B", READ_MATCH, 7]].forEach(function (g) {
+    g[1].forEach(function (q, i) { LABEL[q.id] = g[0] + "-" + (g[2] + i); });
+  });
+
+  function id(q) { return q.id; }
+  function isObj(x) { return typeof x === "object"; }
+  function $(s) { return document.getElementById(s); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function gapify(p) { return esc(p).replace("___", '<span class="gap" aria-label="Lücke">&nbsp;</span>'); }
+
+  /* ---------- State ---------- */
+  var state = { answers: {}, writing: "", name: "", submitted: false };
+  try {
+    var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+    if (saved && typeof saved === "object") {
+      state.answers = saved.answers || {};
+      state.writing = saved.writing || "";
+      state.name = saved.name || "";
+      state.submitted = !!saved.submitted;
+    }
+  } catch (e) {}
+  function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {} }
+
+  /* ---------- Rendering ---------- */
+  function choiceGroup(q, opts, label) {
+    return '<div class="choices" role="radiogroup" aria-label="' + esc(label) + '">' + opts.map(function (o, i) {
+      var inputId = q.id + "_" + i;
+      return '<label class="choice" data-val="' + esc(o) + '"><input type="radio" name="' + q.id + '" id="' + inputId + '" value="' + esc(o) + '"><span>' + esc(o) + '</span></label>';
+    }).join("") + '</div><span class="fix" hidden></span>';
+  }
+
+  function renderList(elId, list, startNo, promptFn, optsFn) {
+    $(elId).innerHTML = list.map(function (q, i) {
+      var no = startNo + i;
+      return '<li data-q="' + q.id + '"><span class="qn">' + no + '</span><div class="qbody">' +
+        (promptFn ? '<p class="prompt">' + promptFn(q) + '</p>' : '') +
+        choiceGroup(q, optsFn ? optsFn(q) : q.o, "Aufgabe " + no) + '</div></li>';
+    }).join("");
+  }
+
+  renderList("g-mc", GRAMMAR_MC, 1, function (q) { return gapify(q.p); });
+
+  var n = 0;
+  $("g-cloze").innerHTML = CLOZE.parts.map(function (part) {
+    if (!isObj(part)) return esc(part);
+    n++;
+    return '<span class="tag">(' + n + ')</span><select id="sel_' + part.id + '" data-q="' + part.id + '" aria-label="Lücke ' + n + '"><option value="">…</option>' +
+      part.o.map(function (o) { return '<option>' + esc(o) + '</option>'; }).join("") + '</select><span class="fixinline" hidden></span>';
+  }).join("");
+
+  renderList("v-odd", VOCAB_ODD, 1, null);
+  renderList("v-gap", VOCAB_GAP, 5, function (q) { return gapify(q.p); });
+  renderList("r-rf", READ_RF, 1, function (q) { return esc(q.p); }, function () { return ["richtig", "falsch"]; });
+
+  $("adList").innerHTML = ADS.map(function (ad) {
+    return '<div class="ad"><span class="letterkey">' + ad.k + '</span><strong>' + esc(ad.t) + '</strong><p>' + esc(ad.d) + '</p></div>';
+  }).join("");
+
+  $("r-match").innerHTML = READ_MATCH.map(function (q, i) {
+    var no = 7 + i;
+    return '<li data-q="' + q.id + '"><span class="qn">' + no + '</span><div class="qbody"><div class="match-row"><span style="flex:1 1 240px">' + esc(q.p) + '</span>' +
+      '<select id="sel_' + q.id + '" data-q="' + q.id + '" aria-label="Anzeige für Situation ' + (i + 1) + '"><option value="">Anzeige …</option>' +
+      ADS.map(function (ad) { return '<option>' + ad.k + '</option>'; }).join("") + '</select></div><span class="fix" hidden></span></div></li>';
+  }).join("");
+
+  /* ---------- Restore + bind ---------- */
+  function applyAnswers() {
+    Object.keys(state.answers).forEach(function (qid) {
+      var v = state.answers[qid];
+      var sel = $("sel_" + qid);
+      if (sel) { sel.value = v; return; }
+      var radios = document.querySelectorAll('input[name="' + qid + '"]');
+      radios.forEach(function (r) { r.checked = (r.value === v); });
+    });
+    $("writing").value = state.writing;
+    $("learnerName").value = state.name;
+  }
+  applyAnswers();
+
+  document.addEventListener("change", function (e) {
+    var t = e.target;
+    if (state.submitted) return;
+    if (t.type === "radio") { state.answers[t.name] = t.value; }
+    else if (t.tagName === "SELECT" && t.dataset.q) { if (t.value) state.answers[t.dataset.q] = t.value; else delete state.answers[t.dataset.q]; }
+    else return;
+    save(); updateProgress();
+  });
+  $("writing").addEventListener("input", function () { state.writing = this.value; save(); updateWords(); updateProgress(); });
+  $("learnerName").addEventListener("input", function () { state.name = this.value; save(); });
+
+  function countWords(t) { var m = t.trim().match(/[A-Za-zÄÖÜäöüß0-9][^\s]*/g); return m ? m.length : 0; }
+  function updateWords() {
+    var c = countWords(state.writing);
+    var el = $("wordCount");
+    el.textContent = c + (c === 1 ? " Wort" : " Wörter") + (c >= 40 && c <= 60 ? " · im Zielbereich" : c > 0 && c < 40 ? " · etwas mehr schreiben" : c > 60 ? " · etwas kürzer ist auch gut" : "");
+    el.className = c >= 40 && c <= 60 ? "ok" : c > 0 ? "low" : "";
+  }
+  function answeredCount() { return Object.keys(KEY).filter(function (k) { return state.answers[k]; }).length; }
+  function updateProgress() {
+    var a = answeredCount();
+    $("progressText").textContent = a + "/" + TOTAL_AUTO + " beantwortet" + (countWords(state.writing) > 0 ? " · Text ✓" : "");
+    $("progressBar").style.width = (a / TOTAL_AUTO * 100) + "%";
+  }
+  updateWords(); updateProgress();
+
+  /* ---------- Scoring ---------- */
+  function score() {
+    var res = {};
+    SECTIONS.forEach(function (s) {
+      res[s.key] = s.ids.filter(function (q) { return state.answers[q] === KEY[q]; }).length;
+    });
+    res.total = res.t1 + res.t2 + res.t3;
+    return res;
+  }
+
+  function markAll() {
+    Object.keys(KEY).forEach(function (qid) {
+      var given = state.answers[qid];
+      var ok = given === KEY[qid];
+      var sel = $("sel_" + qid);
+      var li = document.querySelector('li[data-q="' + qid + '"]');
+      if (sel) {
+        sel.disabled = true;
+        sel.classList.add(ok ? "right" : "wrong");
+        if (sel.nextElementSibling && sel.nextElementSibling.classList.contains("fixinline") && !ok) {
+          sel.nextElementSibling.hidden = false;
+          sel.nextElementSibling.textContent = "→ " + KEY[qid];
+        }
+      }
+      if (li) {
+        li.classList.add(ok ? "right" : "wrong");
+        li.querySelectorAll(".choice").forEach(function (c) {
+          var inp = c.querySelector("input"); inp.disabled = true;
+          if (c.dataset.val === KEY[qid]) c.classList.add("is-correct");
+          else if (inp.checked) c.classList.add("is-wrong");
+        });
+        var fix = li.querySelector(".fix");
+        if (fix && !ok) { fix.hidden = false; fix.innerHTML = (given ? "" : "Keine Antwort. ") + "Richtig: <b>" + esc(KEY[qid]) + "</b>"; }
+      }
+    });
+    $("writing").readOnly = true;
+    $("learnerName").readOnly = true;
+  }
+
+  function showResults(scrollTo) {
+    var r = score();
+    markAll();
+    $("autoScore").innerHTML = r.total + "<small> / " + TOTAL_AUTO + "</small>";
+    var pct = r.total / TOTAL_AUTO;
+    $("verdict").textContent = pct >= 0.8 ? "Sehr gut! Teil 1–3 sind sicher. Teil 4 bewertet Ihre Lehrkraft."
+      : pct >= 0.6 ? "Gut gemacht. Schauen Sie sich die roten Markierungen noch einmal an. Teil 4 bewertet Ihre Lehrkraft."
+      : "Hier gibt es noch Übungsbedarf. Wiederholen Sie die markierten Themen. Teil 4 bewertet Ihre Lehrkraft.";
+    var rows = SECTIONS.map(function (s) {
+      return '<tr><td>' + s.name + '</td><td class="bar-cell"><div class="minibar"><i style="width:' + (r[s.key] / s.max * 100) + '%"></i></div></td><td class="n">' + r[s.key] + ' / ' + s.max + '</td></tr>';
+    }).join("") + '<tr><td>Teil 4 · Schreiben</td><td class="bar-cell small">' + countWords(state.writing) + ' Wörter</td><td class="n">offen / 15</td></tr>';
+    $("scoreRows").innerHTML = rows;
+    SECTIONS.forEach(function (s) { var el = $("pts-" + s.key); el.textContent = r[s.key] + " / " + s.max + " Punkte"; el.classList.add("scored"); });
+    $("results").hidden = false;
+    $("submitArea").hidden = true;
+    $("openNotice").hidden = true;
+    if ($("calcAuto").value === "") { $("calcAuto").value = r.total; recalc(); }
+    if (scrollTo) $("results").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function submit() { state.submitted = true; state.score = score().total; state.max = TOTAL_AUTO; state.submittedAt = new Date().toISOString(); save(); showResults(true); }
+
+  $("submitBtn").addEventListener("click", function () {
+    var open = TOTAL_AUTO - answeredCount();
+    var noText = countWords(state.writing) === 0;
+    if (open > 0 || noText) {
+      var parts = [];
+      if (open > 0) parts.push(open === 1 ? "1 Aufgabe ist noch offen" : open + " Aufgaben sind noch offen");
+      if (noText) parts.push("Teil 4 (Schreiben) ist noch leer");
+      $("openNoticeText").textContent = parts.join(" und ") + ".";
+      $("openNotice").hidden = false;
+      $("confirmSubmit").focus();
+    } else submit();
+  });
+  $("confirmSubmit").addEventListener("click", submit);
+  $("cancelSubmit").addEventListener("click", function () { $("openNotice").hidden = true; });
+
+  if (state.submitted) showResults(false);
+
+  /* ---------- Copy + reset ---------- */
+  function summaryText() {
+    var r = score();
+    var lines = ["Deutsch A2.1 – Abschlusstest", "Name: " + (state.name.trim() || "–"), ""];
+    SECTIONS.forEach(function (s) { lines.push(s.name + ": " + r[s.key] + " / " + s.max); });
+    lines.push("Teil 1–3 gesamt: " + r.total + " / " + TOTAL_AUTO);
+    var wrong = Object.keys(KEY).filter(function (k) { return state.answers[k] !== KEY[k]; });
+    lines.push("Fehler bei: " + (wrong.length ? wrong.map(function (k) { return LABEL[k]; }).join(", ") : "keine"));
+    lines.push("", "Teil 4 · Schreiben (" + countWords(state.writing) + " Wörter):", state.writing.trim() || "–");
+    return lines.join("\n");
+  }
+  $("copyBtn").addEventListener("click", function () {
+    var text = summaryText();
+    var fb = $("copyFallback");
+    function fallback() {
+      fb.value = text; fb.hidden = false; fb.focus(); fb.select();
+      $("copyStatus").textContent = "Text markiert. Kopieren Sie ihn mit Strg+C bzw. ⌘+C.";
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () {
+        $("copyStatus").textContent = "Kopiert. Fügen Sie das Ergebnis in eine E-Mail an Ihre Lehrkraft ein.";
+        fb.hidden = true;
+      }, fallback);
+    } catch (e) { fallback(); }
+  });
+  $("resetBtn").addEventListener("click", function () { $("resetNotice").hidden = false; $("cancelReset").focus(); });
+  $("cancelReset").addEventListener("click", function () { $("resetNotice").hidden = true; });
+  $("confirmReset").addEventListener("click", function () {
+    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+    state = { answers: {}, writing: "", name: "", submitted: false };
+    document.querySelectorAll("li.right, li.wrong").forEach(function (li) { li.classList.remove("right", "wrong"); });
+    document.querySelectorAll(".choice").forEach(function (c) { c.classList.remove("is-correct", "is-wrong"); var i = c.querySelector("input"); i.disabled = false; i.checked = false; });
+    document.querySelectorAll("select[data-q]").forEach(function (s) { s.disabled = false; s.value = ""; s.classList.remove("right", "wrong"); });
+    document.querySelectorAll(".fix, .fixinline").forEach(function (f) { f.hidden = true; f.textContent = ""; });
+    SECTIONS.forEach(function (s) { var el = $("pts-" + s.key); el.textContent = s.max + " Punkte"; el.classList.remove("scored"); });
+    $("writing").readOnly = false; $("learnerName").readOnly = false;
+    applyAnswers(); updateWords(); updateProgress();
+    $("results").hidden = true; $("resetNotice").hidden = true; $("copyFallback").hidden = true; $("copyStatus").textContent = "";
+    $("submitArea").hidden = false;
+    $("calcAuto").value = ""; recalc();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  /* ---------- Teacher view ---------- */
+  function keyBlock(title, list, startNo, fmt) {
+    return '<p class="small" style="margin:14px 0 6px"><b>' + title + '</b></p><ul class="key-grid">' + list.map(function (q, i) {
+      return '<li><span class="k">' + (startNo + i) + '</span><span>' + esc(fmt ? fmt(q) : q.a) + '</span></li>';
+    }).join("") + '</ul>';
+  }
+  $("keyBlocks").innerHTML =
+    keyBlock("Teil 1A · Grammatik", GRAMMAR_MC, 1) +
+    keyBlock("Teil 1B · Lückentext (Perfekt)", CLOZE.parts.filter(isObj), 1) +
+    keyBlock("Teil 2A · Welches Wort passt nicht?", VOCAB_ODD, 1) +
+    keyBlock("Teil 2B · Lücken", VOCAB_GAP, 5) +
+    keyBlock("Teil 3A · Richtig / falsch", READ_RF, 1) +
+    keyBlock("Teil 3B · Anzeigen (D bleibt übrig)", READ_MATCH, 7) +
+    '<p class="small" style="margin-top:12px">Geprüfte Themen: Perfekt mit <i>haben/sein</i> · Partizip II · Präteritum der Modalverben · Dativ (Pronomen, Artikel nach <i>mit</i>) · Akkusativ nach <i>für</i> · Komparativ · Nebensätze mit <i>weil/dass</i> · reflexive Verben.</p>';
+
+  function clamp(v, max) { v = parseFloat(v); if (isNaN(v)) return 0; return Math.max(0, Math.min(max, v)); }
+  function fmtNum(v) { return String(Math.round(v * 2) / 2).replace(".", ","); }
+  function recalc() {
+    var w = clamp($("rub1").value, 6) + clamp($("rub2").value, 3) + clamp($("rub3").value, 6);
+    var a = clamp($("calcAuto").value, 35);
+    var t = a + w;
+    $("calcWrite").textContent = fmtNum(w) + " / 15";
+    $("calcTotal").textContent = fmtNum(t) + " / 50 · " + Math.round(t / 50 * 100) + " %";
+    var g = $("calcGrade");
+    var p = t / 50;
+    var label = p >= 0.9 ? "sehr gut" : p >= 0.8 ? "gut" : p >= 0.7 ? "befriedigend" : p >= 0.6 ? "ausreichend" : "nicht bestanden";
+    g.textContent = label;
+    g.className = "grade-chip " + (p >= 0.6 ? "pass" : "fail");
+  }
+  ["rub1", "rub2", "rub3", "calcAuto"].forEach(function (k) { $(k).addEventListener("input", recalc); });
+  recalc();
+
+  function unlock() {
+    if ($("teacherCode").value.trim().toLowerCase() === TEACHER_CODE) {
+      $("teacher").hidden = false; $("unlockBox").hidden = true; $("unlockMsg").textContent = "";
+      if (state.submitted && $("calcAuto").value === "") { $("calcAuto").value = score().total; recalc(); }
+      $("teacher").scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      $("unlockMsg").textContent = "Code nicht korrekt.";
+    }
+  }
+  $("unlockBtn").addEventListener("click", unlock);
+  $("teacherCode").addEventListener("keydown", function (e) { if (e.key === "Enter") unlock(); });
+  $("lockBtn").addEventListener("click", function () {
+    $("teacher").hidden = true; $("unlockBox").hidden = false; $("teacherCode").value = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+</script>
+
+</body>
+</html>
