@@ -82,6 +82,9 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outlin
 
 .empty { margin-top: 36px; padding: 32px; border: 1px dashed var(--rule); border-radius: 12px; text-align: center; color: var(--ink-soft); }
 footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--ink-soft); }
+footer .credit { margin-top: 6px; }
+footer .credit a { color: var(--accent); text-decoration: none; }
+footer .credit a:hover { text-decoration: underline; }
 @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
 </style>
 </head>
@@ -99,6 +102,7 @@ footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule);
 
   <footer>
     <span id="count"></span>
+    <div class="credit">© 2026 <a href="https://github.com/kshiti-code" target="_blank" rel="noopener noreferrer">kshiti-code</a> · Made with curiosity</div>
   </footer>
 </main>
 
